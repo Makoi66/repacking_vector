@@ -15,7 +15,7 @@ int main() {
     const int iterations = 10000;
 
     // Цикл по различным множителям
-    for (int multiplier = 2; multiplier <= 100; ++multiplier) {
+    for (double multiplier = 1.1; multiplier <= 10; multiplier+=0.1) {
 
         int reallocations = 0;
 
