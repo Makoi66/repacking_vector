@@ -21,7 +21,7 @@ int main() {
 
         // Замер времени
         auto start_time = chrono::high_resolution_clock::now();
-
+        int temp_capacity = 0;
         for (int i = 0; i < iterations; ++i) {
 
             Vector<int> vec(initial_size);
@@ -38,6 +38,7 @@ int main() {
                     reallocations++;
                 }
             }
+            temp_capacity = vec.capacity_get() * sizeof(int);
         }
 
         // Вычисляем среднее время выполнения
@@ -45,9 +46,12 @@ int main() {
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
         double average_time = static_cast<double>(duration) / iterations;
 
+        double ratio = temp_capacity * (reallocations / iterations) * average_time;
         cout << "Множитель: " << multiplier << endl;
         cout << "Количество переаллокаций: " << reallocations/iterations << endl;
-        cout << "Среднее время выполнения (мкс): " << average_time << endl << endl;
+        cout << "Среднее время выполнения (мкс): " << average_time << endl;
+        cout << "Память (байт): " << temp_capacity << endl;
+        cout << "Коэффициет (кол-во элементов/кол-во перезаписей): " << ratio << endl << endl;
     }
 
     return 0;
